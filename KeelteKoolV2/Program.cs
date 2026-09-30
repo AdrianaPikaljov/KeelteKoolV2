@@ -9,6 +9,15 @@ namespace KeelteKoolV2
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //services
+            //apiclients
+
+            //dbcontext
+
+            //identity
+
+            //auth
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
