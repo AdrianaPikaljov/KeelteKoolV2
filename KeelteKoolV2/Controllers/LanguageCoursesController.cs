@@ -1,6 +1,9 @@
 ﻿using KeelteKoolV2.Core.ServiceInterface;
 using KeelteKoolV2.Data;
 using Microsoft.AspNetCore.Mvc;
+using KeelteKoolV2.Models.LanguageCourses;
+using Microsoft.AspNetCore.Authorization;
+using KeelteKoolV2.Core.DTO;
 
 namespace KeelteKoolV2.Controllers
 {
@@ -29,6 +32,47 @@ namespace KeelteKoolV2.Controllers
         {
             LanguageCourseViewModel vm = new();
             return View(vm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(LanguageCourseViewModel vm)
+        {
+            //kontrollime et vm ei oleks null
+            if(vm == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            //kontrollime et vmi modelstate on õige
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            //teeme uue DTO-objekti
+            //asetame dtosse vmi andmed
+            var dto = new LanguageCourseDTO()
+            {
+                Id = vm.Id,
+                Nimetus = vm.Nimetus,
+                Keel = vm.Keel,
+                Tase = vm.Tase,
+                Kirjeldus = vm.Kirjeldus,
+            };
+            //teostatakse päring teenusele
+            var result = await _languageCoursesServices.Create(dto);
+            //teenus peab objekti tagastama
+            //kontrollime kas tagastatud objekt on null
+            if (result == null)
+            { 
+                // kui on, suuname vealehele
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            { 
+                // kui ei, suuname tagasi indeksisse
+                return RedirectToAction(nameof(Index));
+            }
+
         }
     }
 }
