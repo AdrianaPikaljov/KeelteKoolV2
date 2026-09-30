@@ -1,15 +1,24 @@
 ﻿using KeelteKoolV2.Controllers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using KeelteKoolV2.xUnitTesting.Macros;
+using KeelteKoolV2;
+using System.Web.Mvc;
 using KeelteKoolV2.xUnitTesting.Mock;
+using KeelteKoolV2.xUnitTesting.Macros;
+using KeelteKoolV2.Data;
+using KeelteKoolV2.Core;
+using KeelteKoolV2.Core.ServiceInterface;
+using KeelteKoolV2.ApplicationServices.Services;
 
 
 
 
-namespace TARpv24kool_testimine_unit
+
+
+namespace KeelteKoolV2.xUnitTesting
 {
     public abstract class TestBase
     {
@@ -46,10 +55,11 @@ namespace TARpv24kool_testimine_unit
 
         public virtual void SetupServices(IServiceCollection services)
         {
-            services.AddScoped<AccountController>();
+            services.AddScoped<ILanguageCoursesServices, LanguageCoursesServices>();
+            //services.AddScoped<IFileServices, FileServices>();
             services.AddScoped<IHostEnvironment, MockIHostEnvironment>();
 
-            services.AddDbContext<Keeltekool.Models.ApplicationDbContext>
+            services.AddDbContext<KeelteKoolV2Context>
             (x =>
             {
                 x.UseInMemoryDatabase("TEST");

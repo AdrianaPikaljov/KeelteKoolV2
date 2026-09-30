@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KeelteKoolV2.xUnitTesting.Macros
 {
-    internal class IMacros
+    public interface IMacros
     {
     }
 }

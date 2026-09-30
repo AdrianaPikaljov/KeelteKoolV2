@@ -6,10 +6,6 @@ namespace KeelteKoolV2.Controllers
 {
     public class AccountsController : Controller
     {
-        private readonly UserManager<ApplicationUser>_
-        public IActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
