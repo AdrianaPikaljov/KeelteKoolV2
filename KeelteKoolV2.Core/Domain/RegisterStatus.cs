@@ -2,6 +2,6 @@
 {
     public enum RegisterStatus
     {
-        Pending,UnConfirmed,Approved,Rejected,Banned
+        Pending, UnConfirmed, Approved, Rejected, Banned
     }
 }

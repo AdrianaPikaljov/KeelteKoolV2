@@ -3,9 +3,10 @@ using KeelteKoolV2.Core.ServiceInterface;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+
+
 
 namespace KeelteKoolV2.ApplicationServices.Services
 {
@@ -41,8 +42,8 @@ namespace KeelteKoolV2.ApplicationServices.Services
                     {
                         file.CopyTo(ms);
                         ms.Position = 0;
-                        //var fileBytes = ms.ToArray();
-                        //builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
+                        var fileBytes = ms.ToArray();
+                        builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
                         builder.Attachments.Add(file.FileName, ms.ToArray());
                     }
                 }
