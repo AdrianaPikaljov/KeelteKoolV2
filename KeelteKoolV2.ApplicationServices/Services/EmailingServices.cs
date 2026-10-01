@@ -3,10 +3,9 @@ using KeelteKoolV2.Core.ServiceInterface;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-
-
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace KeelteKoolV2.ApplicationServices.Services
 {
