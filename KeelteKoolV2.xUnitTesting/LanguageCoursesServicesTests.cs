@@ -64,6 +64,28 @@ namespace KeelteKoolV2.xUnitTesting
 
         }
 
+        [Fact]
+        public async Task Should_ReturnCourseDetails_WhenGuidIsNotNull()//??
+        {
+            //ülesseade
+            //tekitame uue objekti
+            LanguageCourseDTO course = MockLanguageCourseDTOData();
+            //lisame andmebaasi
+            var createdCourse = await Svc<ILanguageCoursesServices>().Create(course);
+
+            //tegevus
+            //kasutame objektis asuvat id et see objekt tagasi lugeda andmebaasist DetailsAsync meetodiga
+            var result = await Svc<ILanguageCoursesServices>().DetailsAsync(createdCourse.Id);
+
+            //kontroll
+            //kontrollime et tagastati midagi
+            Assert.NotNull(result);
+            //kontrollime et tagastatud objekti id on sama nagu see mis andmebaasi lisatud sai
+            Assert.Equal(result.Id, createdCourse.Id); //on sama kontroll nagu alumine
+            Assert.True(result.Id == createdCourse.Id); //on sama kontroll nagu ülemine, kirjapilt erineb
+                                                        //võrdleme kas objekt on sama nagu see mis me genereerisime, va. id-ga
+            Assert.Equal(result, createdCourse);
+        }
         private LanguageCourseDTO MockLanguageCourseDTOData()
         {
             return new LanguageCourseDTO
