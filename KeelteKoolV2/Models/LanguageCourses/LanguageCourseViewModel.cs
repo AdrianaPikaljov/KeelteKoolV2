@@ -4,14 +4,13 @@
     //erineb DTO-objektist selle võrra, et kõik kasutajale mittevajalikud andmed on sealt eemaldatud.
     //Valikulised andmed mis kuuluvad ka ka hiljem kasutajatele esitamiseks siiski jäävad.
     //See eraldatus tagab ka selle et kasutaja ei saa pahatahtlikult soovimatutele andmetele ligipääsu. The End.
-    
-
+    //and they all lived happily ever after.
     public class LanguageCourseViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; } //optional sest index vaade ei vaja seda
         public string Nimetus { get; set; }
         public string Keel { get; set; }
-        public string Tase { get; set; }
-        public string Kirjeldus { get; set; }
+        public string? Tase { get; set; } //optional sest index vaade ei vaja seda
+        public string? Kirjeldus { get; set; } //optional sest index vaade ei vaja seda
     }
 }

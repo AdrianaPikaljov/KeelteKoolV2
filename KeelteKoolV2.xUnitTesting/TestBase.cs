@@ -1,17 +1,16 @@
-﻿using KeelteKoolV2.Controllers;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using KeelteKoolV2;
-using System.Web.Mvc;
-using KeelteKoolV2.xUnitTesting.Mock;
-using KeelteKoolV2.xUnitTesting.Macros;
-using KeelteKoolV2.Data;
+﻿using KeelteKoolV2;
+using KeelteKoolV2.ApplicationServices.Services;
 using KeelteKoolV2.Core;
 using KeelteKoolV2.Core.ServiceInterface;
-using KeelteKoolV2.ApplicationServices.Services;
+using KeelteKoolV2.Data;
+using KeelteKoolV2.xUnitTesting.Macros;
+using KeelteKoolV2.xUnitTesting.Mock;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.InMemory;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Web.Mvc;
 
 
 
