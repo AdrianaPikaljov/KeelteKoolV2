@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using KeelteKoolV2.Models.Accounts;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -12,5 +13,6 @@ namespace KeelteKoolV2.Core.Domain
         public string Placeholder { get; set; }
 
         public string Name { get; set; }
+        public RegisterStatus AccountStatus { get; set; }
     }
 }
