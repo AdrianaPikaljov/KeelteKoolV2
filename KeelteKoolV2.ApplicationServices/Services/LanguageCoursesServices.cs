@@ -20,7 +20,7 @@ namespace KeelteKoolV2.ApplicationServices.Services
         public async Task<LanguageCourse> Create(LanguageCourseDTO dto)
         {
             //kontrollitakse kas dto omab mingeid andmeid
-            if (dto == null)
+            if (dto == null) 
             {
                 return null;
             }

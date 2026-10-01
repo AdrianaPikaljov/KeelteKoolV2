@@ -1,7 +1,7 @@
 <Solution>
-  <Project Path="../KeelteKoolV2.ApplicationServices/KeelteKoolV2.ApplicationServices.csproj" Id="c5cd2926-2105-4ca3-aebe-c47c6dcf1dc2" />
+  <Project Path="../KeelteKoolV2.ApplicationServices/KeelteKoolV2.ApplicationServices.csproj" />
   <Project Path="../KeelteKoolV2.Core/KeelteKoolV2.Core.csproj" />
   <Project Path="../KeelteKoolV2.Data/KeelteKoolV2.Data.csproj" />
-  <Project Path="../KeelteKoolV2.xUnitTesting/KeelteKoolV2.xUnitTesting.csproj" Id="1751b4cd-6f58-43e7-a33a-58953c7b9ef0" />
+  <Project Path="../KeelteKoolV2.xUnitTesting/KeelteKoolV2.xUnitTesting.csproj" Id="a0d54aa4-c177-4449-8d9e-0a0b8b668389" />
   <Project Path="KeelteKoolV2.csproj" />
 </Solution>

@@ -40,6 +40,12 @@ namespace KeelteKoolV2
                 .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation");
 
             //auth
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Accounts/Login";
+                options.LogoutPath = "/Accounts/Logout";
+                options.AccessDeniedPath = "/Accounts/Login";
+            });
 
 
             var app = builder.Build();
@@ -55,6 +61,7 @@ namespace KeelteKoolV2
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

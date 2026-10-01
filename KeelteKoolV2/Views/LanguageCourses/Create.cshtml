@@ -6,11 +6,11 @@
     <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input asp-for="Id" type="hidden" />
+        <input asp-for="Id" type="hidden"/>
 
         <div class="form-group">
             <label asp-for="Nimetus" class="control-label"></label>
-            <input asp-for="Nimetus" class="form-control" />
+            <input asp-for="Nimetus" class="form-control"/>
             <span asp-validation-for="Nimetus" class="text-danger"></span>
         </div>
 
@@ -34,7 +34,7 @@
 
         @* create only, later add update, checkforid *@
 
-        <input asp-action="create" asp-controller="LanguageCourses" type="submit" value="Loo Keelekursus" class="btn btn-success" />
+        <input asp-action="create" asp-controller="LanguageCourses" type="submit" value="Loo Keelekursus" class="btn btn-success"/>
 
     </form>
 </div>

@@ -16,9 +16,8 @@ namespace KeelteKoolV2.Core.Domain
         public string Kirjeldus { get; set; }
 
         //Vajalikud andmeväljad, mida muudavad ainult kontroller ja/või service
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? ModifiedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public string? ModifiedBy { get; set; }
-
     }
 }

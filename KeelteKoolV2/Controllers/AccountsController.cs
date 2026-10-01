@@ -1,4 +1,4 @@
-﻿using KeelteKoolV2.Core.Domain;
+using KeelteKoolV2.Core.Domain;
 using KeelteKoolV2.Core.DTO;
 using KeelteKoolV2.Core.ServiceInterface;
 using KeelteKoolV2.Models.Accounts;
@@ -68,7 +68,7 @@ namespace KeelteKoolV2.Controllers
                     Name = vm.Name,
                     Email = vm.Email,
                     Placeholder = vm.PlaceHolder,
-                    AccountStatus = (Core.Domain.RegisterStatus)Models.Accounts.RegisterStatus.Pending
+                    AccountStatus = (KeelteKoolV2.Core.Domain.RegisterStatus)Models.Accounts.RegisterStatus.Pending
                 };
 
                 var result = await _userManager.CreateAsync(user, vm.Password);
@@ -90,7 +90,16 @@ namespace KeelteKoolV2.Controllers
                         return RedirectToAction("ListUsers", "Administrations");
                     }
 
-                    _emailingServices.SendEmailToken(newsignup, token);
+                    try
+                    {
+                        _emailingServices.SendEmailToken(newsignup, token);
+                    }
+                    catch (Exception)
+                    {
+                        // Kui emaili seaded puuduvad või email ei läinud välja,
+                        // näitame kinnituslinki otse lehel
+                        ViewBag.ConfirmationLink = confirmationLink;
+                    }
                     List<string> errordatas =
                         [
                         "Area", "Accounts",
@@ -273,7 +282,14 @@ namespace KeelteKoolV2.Controllers
                         Body = $"Please reset your password by clicking <a href='{passwordResetLink}'>here</a>"
                     };
 
-                    _emailingServices.SendEmail(emailDto);
+                    try
+                    {
+                        _emailingServices.SendEmail(emailDto);
+                    }
+                    catch (Exception)
+                    {
+                        // emaili ei saanud saata (seaded puuduvad)
+                    }
 
                     return View("ForgotPasswordConfirmation");
                 }
