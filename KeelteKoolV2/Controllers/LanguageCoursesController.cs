@@ -19,17 +19,9 @@ namespace KeelteKoolV2.Controllers
         }
         public IActionResult Index()
         {
-            ////gets everything
-            //var result = _context.LanguageCourses.ToList();
-            // get only some, with limited info
-            var result = _context.LanguageCourses
-                .Select(x => new LanguageCourseViewModel
-                {
-                    Nimetus = x.Nimetus,
-                    Keel = x.Keel,
-                }).Take(20).OrderBy(x => x.Keel);
-            return View(result);
-
+            //var result = _context.L
+            return View();
+            //need to get all, not under test rn
         }
 
         [HttpGet]
