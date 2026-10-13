@@ -1,4 +1,6 @@
+using KeelteKoolV2.ApplicationServices.Services;
 using KeelteKoolV2.Core.Domain;
+using KeelteKoolV2.Core.ServiceInterface;
 using KeelteKoolV2.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,7 @@ namespace KeelteKoolV2
             builder.Services.AddControllersWithViews();
 
             //services
+            builder.Services.AddScoped<IEmailingServices, EmailingServices>();
             //apiclients
 
             //dbcontext

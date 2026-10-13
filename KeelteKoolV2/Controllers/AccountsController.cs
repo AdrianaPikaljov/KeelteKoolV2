@@ -1,4 +1,6 @@
 ﻿using KeelteKoolV2.Core.Domain;
+using KeelteKoolV2.Core.DTO;
+using KeelteKoolV2.Core.ServiceInterface;
 using KeelteKoolV2.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +13,7 @@ namespace KeelteKoolV2.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //private readonly IEmailServices _emailServices;
+        private readonly IEmailingServices _emailingServices;
         public IActionResult Index()
         {
             return View();
@@ -20,13 +22,13 @@ namespace KeelteKoolV2.Controllers
         public AccountsController
             (
                 UserManager<ApplicationUser> userManager,
-                SignInManager<ApplicationUser> signInManager/*,
-                IEmailServices emailServices*/
+                SignInManager<ApplicationUser> signInManager,
+                IEmailingServices emailingServices
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //_emailServices            
+            _emailingServices = emailingServices;
         }
         // Sisukord:
         //
@@ -76,10 +78,10 @@ namespace KeelteKoolV2.Controllers
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { userId = user.Id, token = token }, Request.Scheme);
 
-                    EmailTokenDto newsignup = new();
+                    EmailTokenDTO newsignup = new();
                     newsignup.Token = token;
-                    newsignup.Body = $"Please registrate your account by: <a href=\"{confirmationLink}\">clicking here</a>";
-                    newsignup.Subject = "CRUD registration";
+                    newsignup.Body = $"Palun kinnita oma konto vajutades <a href=\"{confirmationLink}\">siia</a>";
+                    newsignup.Subject = "Keeltekooli registreerimine";
                     newsignup.To = user.Email;
 
                     if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
@@ -87,14 +89,14 @@ namespace KeelteKoolV2.Controllers
                         return RedirectToAction("ListUsers", "Administrations");
                     }
 
-                    _emailServices.SendEmailToken(newsignup, token);
+                    _emailingServices.SendEmailToken(newsignup, token);
                     List<string> errordatas =
                         [
                         "Area", "Accounts",
                         "Issue", "Success",
                         "StatusMessage", "Registration Sucesss",
                         "ActedOn", $"{vm.Email}",
-                        "CreatedAccountData", $"{vm.Email}\n{vm.City}\n[password hidden]\n[password hidden]"
+                        "CreatedAccountData", $"{vm.Email}\n{vm.PlaceHolder}\n[password hidden]\n[password hidden]"
                         ];
                     ViewBag.ErrorDatas = errordatas;
                     ViewBag.ErrorTitle = "You have successfully registered";
