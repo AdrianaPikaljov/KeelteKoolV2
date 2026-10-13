@@ -1,4 +1,4 @@
-﻿namespace KeelteKoolV2.Models.Accounts
+﻿namespace KeelteKoolV2.Core.Domain
 {
     public enum RegisterStatus
     {
