@@ -2,6 +2,7 @@
 using KeelteKoolV2.Core.DTO;
 using KeelteKoolV2.Core.ServiceInterface;
 using KeelteKoolV2.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,19 +20,74 @@ namespace KeelteKoolV2.ApplicationServices.Services
 
         public async Task<LanguageCourse> Create(LanguageCourseDTO dto)
         {
-            return null;
+            //kontrollitakse kas dto omab mingeid andmeid
+            if (dto == null) 
+            {
+                return null;
+            }
+
+            //tekitab uue andmebaasis istuva objekti vastava mudeli jörgi
+            LanguageCourse domain = new LanguageCourse();
+
+            //omistab andmed andmeedasikandeobjektist domeenimudelile
+            //lahendades ära küsimused mis ei lahendatud kontrolleris, nagu näiteks id, createdat, modifiedat
+            domain.Id = Guid.NewGuid();
+            //domain.Nimetus = "";
+            //domain.Keel = "";
+            //if nimetus empty, return null
+            if (dto.Nimetus.Length < 1)
+            {
+                return null;
+            }
+            if (dto.Keel.Length < 1)
+            {
+                return null;
+            }
+            domain.Keel = dto.Keel;
+            domain.Nimetus = dto.Nimetus;
+            domain.Kirjeldus = dto.Kirjeldus;
+            domain.Tase = dto.Tase;
+            domain.CreatedAt = DateTime.Now;
+            domain.ModifiedAt = DateTime.Now;
+            //later, require user id to be attached to "ModifiedBy" parameter, to know who modified last.
+
+            //Todo: check if db addition succeeded, if yes, return object, if not, null
+            //teostatakse andmebaasi lisamise tegevus
+            await _context.LanguageCourses.AddAsync(domain);
+            await _context.SaveChangesAsync();
+            //tagastatakse domeenile kuuluv objekt
+            return domain;
         }
         public async Task<LanguageCourse> Update(LanguageCourseDTO dto)
         {
-            return null;
+            LanguageCourse domain = new LanguageCourse();
+            domain.Id = (Guid)dto.Id;
+            domain.Kirjeldus = dto.Kirjeldus;
+            domain.Nimetus = dto.Nimetus;
+            domain.Keel = dto.Keel;
+            domain.ModifiedAt = DateTime.Now;
+            domain.CreatedAt = (DateTime)dto.CreatedAt;
+            domain.Tase = dto.Tase;
+            _context.ChangeTracker.Clear(); //<--- puhastab hetkel jälgitud konteksti
+            _context.LanguageCourses.Update(domain);
+            var result = await _context.SaveChangesAsync();
+
+            return domain;
         }
-        public async Task<LanguageCourse> Update(Guid id)
+        public async Task<LanguageCourse> DetailsAsync(Guid id)
         {
-            return null;
+            var result = await _context.LanguageCourses
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return result;
         }
         public async Task<LanguageCourse> Delete(Guid id)
         {
-            return null;
+            var result = await _context.LanguageCourses
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+            _context.LanguageCourses.Remove(result);
+            await _context.SaveChangesAsync();
+            return result;
         }
     }
 }
