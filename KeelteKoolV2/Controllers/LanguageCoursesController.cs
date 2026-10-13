@@ -151,13 +151,13 @@ namespace KeelteKoolV2.Controllers
             return RedirectToAction(nameof(Update), new { id = resultId });
         }
         [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == Guid.Empty)
             {
                 return NotFound();
             }
-            var languageCourse = await _languageCoursesServices.DetailsAsync(id);
+            var languageCourse = await _languageCoursesServices.DetailsAsync((Guid)id);
             if (languageCourse == null)
             {
                 return NotFound();
@@ -173,6 +173,17 @@ namespace KeelteKoolV2.Controllers
             ViewData["ViewType"] = "delete";
 
             return View("DetailsDelete", vm);
+        }
+        [HttpPost]
+        [ActionName("DeleteConfirmed")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var courseToDelete = await _languageCoursesServices.Delete(id);
+            if (courseToDelete == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
