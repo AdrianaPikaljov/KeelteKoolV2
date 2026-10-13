@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KeelteKoolV2.Core\KeelteKoolV2.Core.csproj" />
+  </ItemGroup>
+
 </Project>
