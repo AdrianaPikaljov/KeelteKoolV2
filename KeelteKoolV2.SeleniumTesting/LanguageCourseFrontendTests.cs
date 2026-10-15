@@ -568,7 +568,7 @@ namespace KeelteKoolV2.SeleniumTesting
             return generatedId.ToString();
         }
         /// <summary>
-        /// Ülessseade meetod mis tekitab draiveri, navigeerib aadressile ja vajutab Keeltekursuste lingile.
+        /// Ülesseade meetod mis tekitab draiveri, navigeerib aadressile ja vajutab Keeltekursuste lingile.
         /// </summary>
         /// <returns>Tagastab testisiseselt kasutatava draiveri</returns>
         private static IWebDriver TestSetup_NavigateToIndex()
